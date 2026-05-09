@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg:#0f0f0f; --surface:#1a1a1a; --surface2:#222;
+  --border:#2e2e2e; --border2:rgba(255,255,255,0.13);
+  --text:#f0ede8; --text2:#8C8880; --text3:#575450;
+  --accent:#d4ff4e; --accent-dim:#a8cc3e; --accent-dark:#1e2a06;
+  --green:#4ADE80;
+  --red:#F87171;
+  --radius:14px; --radius-sm:10px;
+  --mono:'DM Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif;
+}
+[data-theme="light"] {
+  --bg:#F5F4F0; --surface:#fff; --surface2:#EEECEA;
+  --border:rgba(0,0,0,0.08); --border2:rgba(0,0,0,0.14);
+  --text:#1A1917; --text2:#6B6860; --text3:#A8A49E;
+  --accent:#5a8a00; --accent-dim:#3d6000; --accent-dark:#e8f5c8;
+  --green:#16A34A;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--text);overflow-x:hidden}
+.app{max-width:430px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;padding-bottom:40px}
+
+/* HEADER */
+.header{padding:20px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.header-left{flex:1}
+.header-left h1{font-family:var(--display);font-size:48px;letter-spacing:1px;line-height:1}
+.header-left h1 span{color:var(--accent)}
+.header-sub{font-size:12px;color:var(--text3);margin-top:4px;font-family:var(--mono)}
+.header-right{display:flex;gap:8px;align-items:center;padding-top:4px}
+.icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.icon-btn:active{transform:scale(0.9)}
+
+/* CLOCKBAR */
+.clockbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm)}
+.cb-date{font-size:12px;color:var(--text3);font-family:var(--mono)}
+.cb-time{font-size:14px;font-weight:600;font-family:var(--mono)}
+
+/* STAT CARDS */
+.stat-cards{display:flex;flex-direction:column;gap:8px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;min-height:80px}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent)}
+.stat-card-num{font-family:var(--display);font-size:52px;color:var(--accent);line-height:1;flex-shrink:0;min-width:72px}
+.stat-card-right{flex:1;min-width:0;display:flex;align-items:center}
+.stat-card-name{font-size:16px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:0.5px}
+.stat-card-sub{font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:3px}
+
+/* TOTAL GOAL ROW */
+.goal-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0}
+.goal-label{font-size:12px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.5px}
+.goal-controls{display:flex;align-items:center}
+.goal-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);color:var(--text);cursor:pointer;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.goal-btn:hover{border-color:var(--accent)}
+.goal-num{font-family:var(--display);font-size:24px;color:var(--accent);width:72px;text-align:center}
+
+/* ACTIVITY BUILDER */
+.builder-section{padding:14px 20px 0}
+.builder-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.builder-card h3{font-size:12px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px}
+.builder-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.inp{border:1px solid var(--border2);border-radius:var(--radius-sm);padding:9px 12px;font-size:14px;font-family:var(--mono);background:var(--surface2);color:var(--text);outline:none;min-width:0}
+.inp:focus{border-color:var(--accent)}
+.inp-name{flex:1}
+.inp-count{width:58px;flex-shrink:0}
+.inp-unit{width:72px;flex-shrink:0}
+.btn-add{padding:9px 14px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#0f0f0f;font-size:13px;font-weight:700;font-family:var(--mono);cursor:pointer;flex-shrink:0}
+.btn-add:active{opacity:0.8}
+
+/* ACTIVITY LIST IN BUILDER */
+.act-list{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.act-list-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.act-list-drag{cursor:grab;color:var(--text3);font-size:16px;flex-shrink:0}
+.act-list-name{flex:1;font-size:13px;font-family:var(--mono);color:var(--text)}
+.act-list-count{font-family:var(--display);font-size:20px;color:var(--accent);flex-shrink:0}
+.act-list-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:2px 4px;opacity:0.5;flex-shrink:0}
+.act-list-del:hover{opacity:1;color:var(--red)}
+.btn-start{display:block;width:100%;margin-top:12px;padding:13px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#0f0f0f;font-size:15px;font-weight:700;font-family:var(--body);cursor:pointer}
+.btn-start:active{opacity:0.8}
+
+/* CARDS */
+.list-section{padding:12px 20px 0;flex:1}
+.section-title{font-size:11px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px}
+.item-wrap{margin-bottom:8px;position:relative;overflow:hidden;border-radius:var(--radius)}
+.hint-bg{position:absolute;inset:0;border-radius:var(--radius);display:flex;align-items:center;padding:0 20px;pointer-events:none;opacity:0}
+.hint-done{background:var(--green);justify-content:flex-start}
+.hint-icon{font-size:20px;color:#fff;font-weight:700}
+.item{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px}
+.item-num{font-family:var(--display);font-size:28px;color:var(--text3);line-height:1;width:32px;text-align:center;flex-shrink:0}
+.item-body{flex:1;min-width:0}
+.item-name{font-size:16px;font-weight:600;color:var(--text)}
+.item-sub{font-size:12px;color:var(--text3);font-family:var(--mono);margin-top:2px}
+.swipe-arrow{font-size:20px;color:var(--text3)}
+
+/* CELEBRATION */
+.celebration{margin:14px 20px 0;background:var(--accent-dark);border:1px solid var(--accent-dim);border-radius:var(--radius);padding:18px;text-align:center;display:none;animation:slideIn 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+@keyframes slideIn{from{opacity:0;transform:translateY(-8px) scale(0.97)}to{opacity:1;transform:none}}
+.cel-icon{font-size:32px;margin-bottom:6px}
+.cel-msg{font-size:20px;font-weight:700;color:var(--accent);font-family:var(--display);letter-spacing:0.5px}
+.cel-sub{font-size:12px;color:var(--accent-dim);margin-top:3px;font-family:var(--mono)}
+
+/* ACTIONS */
+.actions-row{padding:14px 20px 0;display:flex;gap:8px}
+.btn-action{flex:1;padding:11px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--surface);color:var(--text2);font-size:12px;font-family:var(--mono);cursor:pointer;text-align:center}
+.btn-action:hover{border-color:var(--accent-dim);color:var(--accent)}
+
+/* TOAST */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--text);color:var(--bg);font-size:13px;font-weight:500;padding:8px 18px;border-radius:20px;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;z-index:9999}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.empty{font-size:13px;color:var(--text3);font-family:var(--mono);padding:8px 0}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="header-left">
+      <h1>ROU<span>NDS</span></h1>
+      <div class="header-sub" id="header-sub">aktiviteleri ekle ve başla</div>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" id="theme-btn">🌙</button>
+    </div>
+  </div>
+
+  <div style="padding:12px 20px 0">
+    <div class="clockbar">
+      <span class="cb-date" id="clock-date"></span>
+      <span class="cb-time" id="clock-time"></span>
+    </div>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div style="padding:14px 20px 0">
+    <div class="stat-cards" id="stat-cards">
+      <div class="empty" style="grid-column:1/-1">// aktivite ekle</div>
+    </div>
+  </div>
+
+
+
+  <!-- CELEBRATION -->
+  <div class="celebration" id="celebration">
+    <div class="cel-icon">🎯</div>
+    <div class="cel-msg" id="cel-msg">TAMAMLANDI!</div>
+    <div class="cel-sub" id="cel-sub"></div>
+  </div>
+
+  <!-- CARD LIST -->
+  <div class="list-section">
+    <div class="section-title" id="active-title">Sıradaki aktiviteler</div>
+    <div id="card-list"></div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="actions-row">
+    <button class="btn-action" id="round-btn">🔄 Tur Ekle</button>
+    <button class="btn-action" id="edit-btn" style="max-width:52px;font-size:18px">⚙️</button>
+  </div>
+
+  <!-- BUILDER (hidden by default) -->
+  <div class="builder-section" id="builder-section" style="display:none">
+    <div class="builder-card">
+      <h3>📋 Aktivite Listesi</h3>
+      <div class="builder-row">
+        <input class="inp inp-name" id="inp-name" type="text" placeholder="Push-up"/>
+        <input class="inp inp-count" id="inp-count" type="number" placeholder="3" min="1" inputmode="numeric"/>
+        <input class="inp inp-unit" id="inp-unit" type="text" placeholder="kez"/>
+        <button class="btn-add" id="btn-add-act">+</button>
+      </div>
+      <div class="act-list" id="act-list"></div>
+
+      <button class="btn-start" id="btn-apply" style="margin-top:4px">✓ Uygula ve Başla</button>
+      <button class="btn-start" id="btn-reset" style="margin-top:8px;background:var(--surface);color:var(--red);border:1px solid var(--red)">🗑 Bugünü Sıfırla</button>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const KEY = 'aktivite_takip_v1';
+
+// State:
+// activities: [ { name, count } ]  — template list
+// days: { "YYYY-MM-DD": { done: number, rounds: number } }
+// totalGoal: number
+let state = { activities: [], totalGoal: 100, days: {} };
+
+function todayStr() { return new Date().toISOString().split('T')[0]; }
+function dayData(k) { if (!state.days[k]) state.days[k] = { done:0, rounds:1 }; return state.days[k]; }
+function todayData() { return dayData(todayStr()); }
+function saveState() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+function loadState() {
+  try {
+    const s = localStorage.getItem(KEY);
+    if (s) state = Object.assign({ activities:[], totalGoal:100, days:{} }, JSON.parse(s));
+  } catch(e) {}
+}
+
+// Total activities done across all time
+function allTimeDone() { return Object.values(state.days).reduce((s,d) => s+(d.done||0), 0); }
+// Today's done
+function todayDone() { return (state.days[todayStr()]||{done:0}).done; }
+// Total cards in today's session (activities * rounds)
+function todayTarget() {
+  const td = todayData();
+  return state.activities.length * (td.rounds||1);
+}
+// Cards completed today
+function todayDoneCount() { return todayData().done; }
+
+// 1 card per activity; count = puan değeri
+function buildQueue() {
+  const rounds = todayData().rounds || 1;
+  const queue = [];
+  for (let r = 0; r < rounds; r++) {
+    state.activities.forEach(a => {
+      queue.push({ name: a.name, count: a.count, unit: a.unit||'kez', round: r+1 });
+    });
+  }
+  return queue;
+}
+
+/* ── Audio ────────────────────────────────────────────────────────────── */
+let audioCtx = null;
+function getCtx() { if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); if (audioCtx.state==='suspended') audioCtx.resume(); return audioCtx; }
+document.addEventListener('touchstart', () => { try { const c=getCtx(),b=c.createBuffer(1,1,22050),s=c.createBufferSource(); s.buffer=b; s.connect(c.destination); s.start(0); c.resume(); } catch(e){} }, { once:true });
+function playDone() { try { const c=getCtx(),t=c.currentTime,o=c.createOscillator(),g=c.createGain(); o.connect(g); g.connect(c.destination); o.type='sine'; o.frequency.setValueAtTime(523,t); o.frequency.setValueAtTime(659,t+0.1); o.frequency.setValueAtTime(784,t+0.2); g.gain.setValueAtTime(0.18,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.5); o.start(t); o.stop(t+0.5); } catch(e){} }
+function playGoal() { try { const c=getCtx(),t=c.currentTime; [523,659,784,1047].forEach((f,i) => { const o=c.createOscillator(),g=c.createGain(); o.connect(g); g.connect(c.destination); o.type='sine'; o.frequency.value=f; g.gain.setValueAtTime(0.15,t+i*0.1); g.gain.exponentialRampToValueAtTime(0.001,t+i*0.1+0.4); o.start(t+i*0.1); o.stop(t+i*0.1+0.4); }); } catch(e){} }
+
+/* ── Toast ────────────────────────────────────────────────────────────── */
+let toastTimer = null;
+function showToast(msg) { const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'), 2200); }
+
+/* ── Fireworks ────────────────────────────────────────────────────────── */
+function launchFireworks(el) {
+  const r=el.getBoundingClientRect(); const cx=r.left+r.width/2, cy=r.top+r.height/2;
+  const colors=['#d4ff4e','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FB923C'];
+  for (let i=0; i<24; i++) {
+    const p=document.createElement('div');
+    const color=colors[i%colors.length], angle=(i/24)*Math.PI*2, speed=70+Math.random()*80, size=Math.random()<0.5?6:4;
+    p.style.cssText=`position:fixed;z-index:9998;pointer-events:none;left:${cx}px;top:${cy}px;width:${size*1.4}px;height:${size}px;border-radius:2px;background:${color};transform:translate(-50%,-50%) rotate(${Math.random()*360}deg);`;
+    document.body.appendChild(p);
+    const tx=Math.cos(angle)*speed*(0.7+Math.random()*0.6), ty=Math.sin(angle)*speed*(0.7+Math.random()*0.6)-50;
+    requestAnimationFrame(() => { p.style.transition='transform 0.7s cubic-bezier(0.2,0.8,0.4,1),opacity 0.7s ease-in'; p.style.transform=`translate(calc(-50% + ${tx}px),calc(-50% + ${ty}px)) rotate(${Math.random()*720-360}deg)`; p.style.opacity='0'; });
+    setTimeout(() => p.remove(), 750);
+  }
+}
+
+/* ── Theme ────────────────────────────────────────────────────────────── */
+let dark = true;
+try { const s=localStorage.getItem('akt_theme'); if(s) dark=s==='dark'; } catch(e) {}
+function applyTheme() { document.documentElement.setAttribute('data-theme',dark?'dark':'light'); document.getElementById('theme-btn').textContent=dark?'🌙':'☀️'; try { localStorage.setItem('akt_theme',dark?'dark':'light'); } catch(e){} }
+applyTheme();
+document.getElementById('theme-btn').addEventListener('click', () => { dark=!dark; applyTheme(); });
+
+/* ── Stat Cards ────────────────────────────────────────────────────────── */
+function renderStatCards() {
+  const el = document.getElementById('stat-cards');
+  if (!state.activities.length) {
+    el.innerHTML = '<div class="empty" style="grid-column:1/-1">// aktivite ekle</div>';
+    return;
+  }
+  // Build per-activity totals from all days
+  const totals = {};
+  state.activities.forEach(a => totals[a.name] = 0);
+  Object.values(state.days).forEach(day => {
+    // We need per-activity breakdown — stored in day.actTotals if available
+    if (day.actTotals) {
+      Object.entries(day.actTotals).forEach(([name, count]) => {
+        if (totals[name] !== undefined) totals[name] += count;
+        else totals[name] = count;
+      });
+    }
+  });
+  el.innerHTML = state.activities.map(a =>
+    `<div class="stat-card">
+      <div class="stat-card-num">${(totals[a.name]||0).toLocaleString('tr-TR')} <span style="font-size:20px;color:var(--accent);font-family:var(--display)">${a.unit||'kez'}</span></div>
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;margin-left:-70px">
+        <div class="stat-card-name">${a.name}</div>
+      </div>
+    </div>`
+  ).join('');
+}
+
+/* ── Render ───────────────────────────────────────────────────────────── */
+function render() {
+  renderStatCards();
+
+  const done = todayDoneCount();
+  const target = todayTarget();
+  const remaining = Math.max(0, target - done);
+
+  if (state.activities.length === 0) {
+    document.getElementById('header-sub').textContent = '// aktivite listesi boş';
+    document.getElementById('active-title').textContent = 'Aktivite yok';
+    document.getElementById('card-list').innerHTML = '<div class="empty">// ✏️ Listeyi Düzenle\'ye bas ve aktivite ekle</div>';
+    return;
+  }
+
+  document.getElementById('header-sub').textContent = remaining > 0 ? `// bugün ${remaining} aktivite kaldı` : '// bugün tamamlandı 🎉';
+  document.getElementById('active-title').textContent = remaining > 0 ? `Sıradaki aktiviteler (${remaining})` : 'Bugün tamamlandı 🎉';
+
+  const queue = buildQueue();
+  const pendingQueue = queue.slice(done); // remaining cards
+
+  const cardList = document.getElementById('card-list');
+  if (pendingQueue.length === 0) {
+    cardList.innerHTML = '';
+  } else {
+    cardList.innerHTML = pendingQueue.map((item, i) => {
+      const globalNum = done + i + 1;
+      const roundLabel = (todayData().rounds||1) > 1 ? ` · Tur ${item.round}` : '';
+      return `<div class="item-wrap" id="pw-${i}">
+        <div class="hint-bg hint-done"><span class="hint-icon">✓</span></div>
+        <div class="item" id="pi-${i}">
+          <div class="item-num">${globalNum}</div>
+          <div class="item-body">
+            <div class="item-name">${item.name}</div>
+            <div class="item-sub">+${item.count} ${item.unit||'kez'}${roundLabel}</div>
+          </div>
+          <div class="swipe-arrow">›</div>
+        </div>
+      </div>`;
+    }).join('');
+    attachSwipe();
+  }
+
+  const rounds = todayData().rounds || 1;
+  document.getElementById('round-btn').textContent = `🔄 Tur Ekle (${rounds}→${rounds+1})`;
+}
+
+/* ── Swipe ────────────────────────────────────────────────────────────── */
+function attachSwipe() {
+  const el=document.getElementById('pi-0'), wrap=document.getElementById('pw-0');
+  if (!el||!wrap) return;
+  const hintEl=wrap.querySelector('.hint-done');
+  let sx=0,sy=0,cx=0,on=false,locked=false;
+  function start(x,y) { sx=x; sy=y; cx=0; on=true; locked=false; el.style.transition='none'; }
+  function move(x,y) {
+    if (!on) return;
+    const dx=x-sx, dy=y-sy;
+    if (!locked) { if (Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>8) { on=false; return; } if (Math.abs(dx)>8) locked=true; else return; }
+    if (dx<0) { el.style.transform='translateX(0)'; if (hintEl) hintEl.style.opacity=0; return; }
+    cx=dx; el.style.transform=`translateX(${dx}px)`; if (hintEl) hintEl.style.opacity=Math.min(1,dx/90);
+  }
+  function end() {
+    if (!on&&!locked) return; on=false;
+    if (cx>90) completeActivity(el);
+    else { el.style.transition='transform 0.25s cubic-bezier(0.4,0,0.2,1)'; el.style.transform='translateX(0)'; if (hintEl) hintEl.style.opacity=0; }
+  }
+  el.addEventListener('touchstart', e => { const t=e.touches[0]; start(t.clientX,t.clientY); }, { passive:true });
+  el.addEventListener('touchmove', e => { if (!on) return; const t=e.touches[0]; move(t.clientX,t.clientY); }, { passive:true });
+  el.addEventListener('touchend', end);
+  el.addEventListener('mousedown', e => {
+    start(e.clientX,e.clientY);
+    function mm(e2) { move(e2.clientX,e2.clientY); }
+    function mu() { end(); window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); }
+    window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu);
+  });
+}
+
+function completeActivity(el) {
+  const wrap=el.closest('.item-wrap');
+  const queue=buildQueue();
+  const done=todayDoneCount();
+  const item=queue[done];
+  playDone(); launchFireworks(el);
+  el.style.transition='transform 0.32s cubic-bezier(0.4,0,0.2,1),opacity 0.32s';
+  el.style.transform='translateX(450px)'; el.style.opacity='0';
+  if (wrap) {
+    wrap.style.transition='max-height 0.3s 0.28s,margin-bottom 0.3s 0.28s';
+    wrap.style.maxHeight=wrap.offsetHeight+'px'; wrap.style.overflow='hidden';
+    setTimeout(() => { wrap.style.maxHeight='0'; wrap.style.marginBottom='0'; }, 50);
+  }
+  setTimeout(() => {
+    const td=todayData(); const target=todayTarget();
+    const pts = item ? item.count : 1;
+    td.done=Math.min(td.done+1, target);
+    if (item) {
+      if (!td.actTotals) td.actTotals={};
+      td.actTotals[item.name] = (td.actTotals[item.name]||0)+pts;
+    }
+    saveState();
+    showToast(`✓ ${item ? item.name : 'Aktivite'} +${pts} ${item && item.unit ? item.unit : 'kez'}`);
+    if (td.done >= target) setTimeout(() => celebrate(), 300);
+    render();
+  }, 380);
+}
+
+function celebrate() {
+  const el=document.getElementById('celebration');
+  document.getElementById('cel-msg').textContent='TAMAMLANDI!';
+  document.getElementById('cel-sub').textContent=`// Bugünkü tüm aktiviteler bitti! Bravo!`;
+  el.style.display='block'; playGoal(); setTimeout(() => el.style.display='none', 5000);
+}
+
+/* ── Round ────────────────────────────────────────────────────────────── */
+document.getElementById('round-btn').addEventListener('click', () => {
+  if (state.activities.length===0) { showToast('❌ Önce aktivite ekle'); return; }
+  const td=todayData(); const cur=td.rounds||1;
+  td.rounds=cur+1; saveState();
+  document.getElementById('celebration').style.display='none';
+  render(); showToast(`🔄 Tur ${cur+1} başladı!`);
+});
+
+
+
+/* ── Builder ──────────────────────────────────────────────────────────── */
+let builderOpen = false;
+function toggleBuilder(open) {
+  builderOpen = open;
+  document.getElementById('builder-section').style.display = open ? 'block' : 'none';
+  document.getElementById('edit-btn').textContent = open ? '✕' : '⚙️';
+  if (open) renderActList();
+}
+document.getElementById('edit-btn').addEventListener('click', () => toggleBuilder(!builderOpen));
+
+document.getElementById('btn-add-act').addEventListener('click', () => {
+  const name = document.getElementById('inp-name').value.trim();
+  const count = parseInt(document.getElementById('inp-count').value);
+  if (!name) { showToast('❌ Aktivite adı gir'); return; }
+  if (!count||count<1) { showToast('❌ Adet gir'); return; }
+  const unit = document.getElementById('inp-unit').value.trim() || 'kez';
+  state.activities.push({ name, count, unit });
+  document.getElementById('inp-name').value='';
+  document.getElementById('inp-count').value='';
+  document.getElementById('inp-unit').value='';
+  saveState(); renderActList();
+});
+
+// Enter key on inputs
+['inp-name','inp-count','inp-unit'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => { if (e.key==='Enter') document.getElementById('btn-add-act').click(); });
+});
+
+document.getElementById('btn-apply').addEventListener('click', () => {
+  if (state.activities.length===0) { showToast('❌ En az bir aktivite ekle'); return; }
+  const td=todayData(); td.done=0; td.rounds=1;
+  saveState(); toggleBuilder(false); render();
+  showToast('✓ Liste uygulandı, bugün sıfırlandı');
+});
+
+document.getElementById('btn-reset').addEventListener('click', () => {
+  const td=todayData(); td.done=0; td.rounds=1; td.actTotals={};
+  saveState(); render(); showToast('🗑 Bugün sıfırlandı');
+});
+
+function renderActList() {
+  const el=document.getElementById('act-list');
+  if (!state.activities.length) { el.innerHTML='<div class="empty">// henüz aktivite yok</div>'; return; }
+  el.innerHTML=state.activities.map((a,i) =>
+    `<div class="act-list-item" data-idx="${i}">
+      <span class="act-list-drag">⠿</span>
+      <span class="act-list-name">${a.name}</span>
+      <span class="act-list-count">${a.count} ${a.unit||'kez'}</span>
+      <button class="act-list-del" data-idx="${i}">✕</button>
+    </div>`
+  ).join('');
+  el.querySelectorAll('.act-list-del').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.activities.splice(parseInt(btn.dataset.idx), 1);
+      saveState(); renderActList();
+    });
+  });
+}
+
+/* ── Clock ────────────────────────────────────────────────────────────── */
+function updateClock() {
+  const now=new Date();
+  const d=document.getElementById('clock-date'), t=document.getElementById('clock-time');
+  if (!d||!t) return;
+  d.textContent=now.toLocaleDateString('tr-TR',{weekday:'short',day:'numeric',month:'long'});
+  t.textContent=now.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+
+/* ── Init ─────────────────────────────────────────────────────────────── */
+loadState();
+window.addEventListener('load', () => { render(); });
+setInterval(updateClock, 1000);
+updateClock();
+document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
+</script>
+</body>
+</html>
