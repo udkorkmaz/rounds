@@ -11,8 +11,7 @@
   --border:#2e2e2e; --border2:rgba(255,255,255,0.13);
   --text:#f0ede8; --text2:#8C8880; --text3:#575450;
   --accent:#d4ff4e; --accent-dim:#a8cc3e; --accent-dark:#1e2a06;
-  --green:#4ADE80;
-  --red:#F87171;
+  --green:#4ADE80; --red:#F87171;
   --radius:14px; --radius-sm:10px;
   --mono:'DM Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'DM Sans',sans-serif;
 }
@@ -30,7 +29,6 @@ html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--t
 
 /* HEADER */
 .header{padding:20px 20px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.header-left{flex:1}
 .header-left h1{font-family:var(--display);font-size:48px;letter-spacing:1px;line-height:1}
 .header-left h1 span{color:var(--accent)}
 .header-sub{font-size:12px;color:var(--text3);margin-top:4px;font-family:var(--mono)}
@@ -38,51 +36,17 @@ html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--t
 .icon-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
 .icon-btn:active{transform:scale(0.9)}
 
-/* CLOCKBAR */
+/* CLOCK */
 .clockbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm)}
 .cb-date{font-size:12px;color:var(--text3);font-family:var(--mono)}
 .cb-time{font-size:14px;font-weight:600;font-family:var(--mono)}
 
 /* STAT CARDS */
-.stat-cards{display:flex;flex-direction:column;gap:8px}
-.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;position:relative;overflow:hidden;display:flex;align-items:center;gap:16px;min-height:80px}
+.stat-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center;}
 .stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent)}
-.stat-card-num{font-family:var(--display);font-size:52px;color:var(--accent);line-height:1;flex-shrink:0;min-width:72px}
-.stat-card-right{flex:1;min-width:0;display:flex;align-items:center}
-.stat-card-name{font-size:16px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:0.5px}
-.stat-card-sub{font-size:11px;color:var(--text3);font-family:var(--mono);margin-top:3px}
-
-/* TOTAL GOAL ROW */
-.goal-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 0}
-.goal-label{font-size:12px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.5px}
-.goal-controls{display:flex;align-items:center}
-.goal-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border2);background:var(--surface);color:var(--text);cursor:pointer;font-size:18px;font-weight:600;display:flex;align-items:center;justify-content:center}
-.goal-btn:hover{border-color:var(--accent)}
-.goal-num{font-family:var(--display);font-size:24px;color:var(--accent);width:72px;text-align:center}
-
-/* ACTIVITY BUILDER */
-.builder-section{padding:14px 20px 0}
-.builder-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
-.builder-card h3{font-size:12px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px}
-.builder-row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
-.inp{border:1px solid var(--border2);border-radius:var(--radius-sm);padding:9px 12px;font-size:14px;font-family:var(--mono);background:var(--surface2);color:var(--text);outline:none;min-width:0}
-.inp:focus{border-color:var(--accent)}
-.inp-name{flex:1}
-.inp-count{width:58px;flex-shrink:0}
-.inp-unit{width:72px;flex-shrink:0}
-.btn-add{padding:9px 14px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#0f0f0f;font-size:13px;font-weight:700;font-family:var(--mono);cursor:pointer;flex-shrink:0}
-.btn-add:active{opacity:0.8}
-
-/* ACTIVITY LIST IN BUILDER */
-.act-list{display:flex;flex-direction:column;gap:6px;margin-top:4px}
-.act-list-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border)}
-.act-list-drag{cursor:grab;color:var(--text3);font-size:16px;flex-shrink:0}
-.act-list-name{flex:1;font-size:13px;font-family:var(--mono);color:var(--text)}
-.act-list-count{font-family:var(--display);font-size:20px;color:var(--accent);flex-shrink:0}
-.act-list-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:2px 4px;opacity:0.5;flex-shrink:0}
-.act-list-del:hover{opacity:1;color:var(--red)}
-.btn-start{display:block;width:100%;margin-top:12px;padding:13px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#0f0f0f;font-size:15px;font-weight:700;font-family:var(--body);cursor:pointer}
-.btn-start:active{opacity:0.8}
+.stat-card-num{font-family:var(--display);font-size:48px;color:var(--accent);line-height:1}
+.stat-card-name{font-size:13px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:0.5px;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* CARDS */
 .list-section{padding:12px 20px 0;flex:1}
@@ -90,31 +54,48 @@ html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--t
 .item-wrap{margin-bottom:8px;position:relative;overflow:hidden;border-radius:var(--radius)}
 .hint-bg{position:absolute;inset:0;border-radius:var(--radius);display:flex;align-items:center;padding:0 20px;pointer-events:none;opacity:0}
 .hint-done{background:var(--green);justify-content:flex-start}
-.hint-icon{font-size:20px;color:#fff;font-weight:700}
-.item{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px}
+.hint-icon{font-size:20px;color:#fff}
+.item{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:grab}
 .item-num{font-family:var(--display);font-size:28px;color:var(--text3);line-height:1;width:32px;text-align:center;flex-shrink:0}
-.item-body{flex:1;min-width:0}
+.item-body{flex:1}
 .item-name{font-size:16px;font-weight:600;color:var(--text)}
 .item-sub{font-size:12px;color:var(--text3);font-family:var(--mono);margin-top:2px}
 .swipe-arrow{font-size:20px;color:var(--text3)}
 
 /* CELEBRATION */
-.celebration{margin:14px 20px 0;background:var(--accent-dark);border:1px solid var(--accent-dim);border-radius:var(--radius);padding:18px;text-align:center;display:none;animation:slideIn 0.4s cubic-bezier(0.34,1.56,0.64,1)}
-@keyframes slideIn{from{opacity:0;transform:translateY(-8px) scale(0.97)}to{opacity:1;transform:none}}
+.celebration{margin:14px 20px 0;background:var(--accent-dark);border:1px solid var(--accent-dim);border-radius:var(--radius);padding:18px;text-align:center;display:none}
 .cel-icon{font-size:32px;margin-bottom:6px}
 .cel-msg{font-size:20px;font-weight:700;color:var(--accent);font-family:var(--display);letter-spacing:0.5px}
-.cel-sub{font-size:12px;color:var(--accent-dim);margin-top:3px;font-family:var(--mono)}
 
 /* ACTIONS */
 .actions-row{padding:14px 20px 0;display:flex;gap:8px}
 .btn-action{flex:1;padding:11px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--surface);color:var(--text2);font-size:12px;font-family:var(--mono);cursor:pointer;text-align:center}
 .btn-action:hover{border-color:var(--accent-dim);color:var(--accent)}
+.btn-gear{max-width:48px;font-size:18px}
+
+/* BUILDER */
+.builder-section{padding:14px 20px 0;display:none}
+.builder-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.builder-card h3{font-size:12px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px}
+.builder-row{display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.inp{border:1px solid var(--border2);border-radius:var(--radius-sm);padding:9px 10px;font-size:14px;font-family:var(--mono);background:var(--surface2);color:var(--text);outline:none;min-width:0}
+.inp:focus{border-color:var(--accent)}
+.inp-name{flex:1}
+.inp-count{width:52px;flex-shrink:0}
+.inp-unit{width:64px;flex-shrink:0}
+.btn-add{padding:9px 12px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#0f0f0f;font-size:14px;font-weight:700;font-family:var(--mono);cursor:pointer;flex-shrink:0}
+.act-list{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.act-item{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface2);border-radius:var(--radius-sm);border:1px solid var(--border)}
+.act-item-label{flex:1;font-size:13px;font-family:var(--mono);color:var(--text)}
+.act-item-val{font-family:var(--display);font-size:18px;color:var(--accent);flex-shrink:0}
+.act-item-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:2px 4px;opacity:0.5}
+.act-item-del:hover{opacity:1;color:var(--red)}
+.btn-apply{display:block;width:100%;margin-top:10px;padding:12px;border-radius:var(--radius-sm);border:none;background:var(--accent);color:#0f0f0f;font-size:14px;font-weight:700;font-family:var(--body);cursor:pointer}
 
 /* TOAST */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--text);color:var(--bg);font-size:13px;font-weight:500;padding:8px 18px;border-radius:20px;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;z-index:9999}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-.empty{font-size:13px;color:var(--text3);font-family:var(--mono);padding:8px 0}
+.empty{font-size:13px;color:var(--text3);font-family:var(--mono);padding:4px 0}
 </style>
 </head>
 <body>
@@ -144,13 +125,10 @@ html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--t
     </div>
   </div>
 
-
-
   <!-- CELEBRATION -->
   <div class="celebration" id="celebration">
     <div class="cel-icon">🎯</div>
-    <div class="cel-msg" id="cel-msg">TAMAMLANDI!</div>
-    <div class="cel-sub" id="cel-sub"></div>
+    <div class="cel-msg">TAMAMLANDI!</div>
   </div>
 
   <!-- CARD LIST -->
@@ -161,24 +139,22 @@ html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--t
 
   <!-- ACTIONS -->
   <div class="actions-row">
-    <button class="btn-action" id="round-btn">🔄 Reset</button>
-    <button class="btn-action" id="edit-btn" style="max-width:52px;font-size:18px">⚙️</button>
+    <button class="btn-action" id="reset-btn">🔄 Yeni Tur</button>
+    <button class="btn-action btn-gear" id="edit-btn">⚙️</button>
   </div>
 
-  <!-- BUILDER (hidden by default) -->
-  <div class="builder-section" id="builder-section" style="display:none">
+  <!-- BUILDER -->
+  <div class="builder-section" id="builder-section">
     <div class="builder-card">
       <h3>📋 Aktivite Listesi</h3>
       <div class="builder-row">
         <input class="inp inp-name" id="inp-name" type="text" placeholder="Push-up"/>
-        <input class="inp inp-count" id="inp-count" type="number" placeholder="3" min="1" inputmode="numeric"/>
+        <input class="inp inp-count" id="inp-count" type="number" placeholder="10" min="1" inputmode="numeric"/>
         <input class="inp inp-unit" id="inp-unit" type="text" placeholder="kez"/>
-        <button class="btn-add" id="btn-add-act">+</button>
+        <button class="btn-add" id="btn-add">+</button>
       </div>
       <div class="act-list" id="act-list"></div>
-
-      <button class="btn-start" id="btn-apply" style="margin-top:4px">✓ Uygula ve Başla</button>
-      <button class="btn-start" id="btn-reset" style="margin-top:8px;background:var(--surface);color:var(--red);border:1px solid var(--red)">🗑 Bugünü Sıfırla</button>
+      <button class="btn-apply" id="btn-apply">✓ Uygula</button>
     </div>
   </div>
 
@@ -186,253 +162,221 @@ html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--t
 <div class="toast" id="toast"></div>
 
 <script>
-const KEY = 'aktivite_takip_v1';
+// ── State ─────────────────────────────────────────────────────────────────────
+// activities: [{ name, count, unit }]
+// days: { "YYYY-MM-DD": { completed: { "Push-up": 3, "Squat": 1 } } }
+//   completed[name] = how many times that activity card was swiped today
 
-// State:
-// activities: [ { name, count } ]  — template list
-// days: { "YYYY-MM-DD": { done: number, rounds: number } }
-// totalGoal: number
-let state = { activities: [], totalGoal: 100, days: {} };
+const KEY = 'rounds_v1';
+let state = { activities: [], days: {} };
 
 function todayStr() { return new Date().toISOString().split('T')[0]; }
-function dayData(k) { if (!state.days[k]) state.days[k] = { done:0, rounds:1 }; return state.days[k]; }
-function todayData() { return dayData(todayStr()); }
+function todayData() {
+  const k = todayStr();
+  if (!state.days[k]) state.days[k] = { completed: {}, history: {} };
+  if (!state.days[k].completed) state.days[k].completed = {};
+  if (!state.days[k].history) state.days[k].history = {};
+  return state.days[k];
+}
 function saveState() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
 function loadState() {
-  try {
-    const s = localStorage.getItem(KEY);
-    if (s) state = Object.assign({ activities:[], totalGoal:100, days:{} }, JSON.parse(s));
-  } catch(e) {}
+  try { const s = localStorage.getItem(KEY); if (s) state = Object.assign({ activities:[], days:{} }, JSON.parse(s)); } catch(e) {}
 }
 
-// Total activities done across all time
-function allTimeDone() { return Object.values(state.days).reduce((s,d) => s+(d.done||0), 0); }
-// Today's done
-function todayDone() { return (state.days[todayStr()]||{done:0}).done; }
-// Total cards in today's session (activities * rounds)
-function todayTarget() {
-  const td = todayData();
-  if (td.pendingMode && td.pending) return td.pending.length;
-  return state.activities.length * (td.rounds||1);
-}
-// Cards completed today
-function todayDoneCount() { return todayData().done; }
-
-// 1 card per activity; count = puan değeri
-function buildQueue() {
-  const td = todayData();
-  if (td.pendingMode && td.pending) {
-    return td.pending.map(a => ({ name: a.name, count: a.count, unit: a.unit||'kez', round: 0 }));
-  }
-  const rounds = td.rounds || 1;
-  const queue = [];
-  for (let r = 0; r < rounds; r++) {
-    state.activities.forEach(a => {
-      queue.push({ name: a.name, count: a.count, unit: a.unit||'kez', round: r+1 });
-    });
-  }
-  return queue;
-}
-
-/* ── Audio ────────────────────────────────────────────────────────────── */
-let audioCtx = null;
-function getCtx() { if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); if (audioCtx.state==='suspended') audioCtx.resume(); return audioCtx; }
-document.addEventListener('touchstart', () => { try { const c=getCtx(),b=c.createBuffer(1,1,22050),s=c.createBufferSource(); s.buffer=b; s.connect(c.destination); s.start(0); c.resume(); } catch(e){} }, { once:true });
-function playDone() { try { const c=getCtx(),t=c.currentTime,o=c.createOscillator(),g=c.createGain(); o.connect(g); g.connect(c.destination); o.type='sine'; o.frequency.setValueAtTime(523,t); o.frequency.setValueAtTime(659,t+0.1); o.frequency.setValueAtTime(784,t+0.2); g.gain.setValueAtTime(0.18,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.5); o.start(t); o.stop(t+0.5); } catch(e){} }
-function playGoal() { try { const c=getCtx(),t=c.currentTime; [523,659,784,1047].forEach((f,i) => { const o=c.createOscillator(),g=c.createGain(); o.connect(g); g.connect(c.destination); o.type='sine'; o.frequency.value=f; g.gain.setValueAtTime(0.15,t+i*0.1); g.gain.exponentialRampToValueAtTime(0.001,t+i*0.1+0.4); o.start(t+i*0.1); o.stop(t+i*0.1+0.4); }); } catch(e){} }
-
-/* ── Toast ────────────────────────────────────────────────────────────── */
-let toastTimer = null;
-function showToast(msg) { const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'), 2200); }
-
-/* ── Fireworks ────────────────────────────────────────────────────────── */
-function launchFireworks(el) {
-  const r=el.getBoundingClientRect(); const cx=r.left+r.width/2, cy=r.top+r.height/2;
-  const colors=['#d4ff4e','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FB923C'];
-  for (let i=0; i<24; i++) {
-    const p=document.createElement('div');
-    const color=colors[i%colors.length], angle=(i/24)*Math.PI*2, speed=70+Math.random()*80, size=Math.random()<0.5?6:4;
-    p.style.cssText=`position:fixed;z-index:9998;pointer-events:none;left:${cx}px;top:${cy}px;width:${size*1.4}px;height:${size}px;border-radius:2px;background:${color};transform:translate(-50%,-50%) rotate(${Math.random()*360}deg);`;
-    document.body.appendChild(p);
-    const tx=Math.cos(angle)*speed*(0.7+Math.random()*0.6), ty=Math.sin(angle)*speed*(0.7+Math.random()*0.6)-50;
-    requestAnimationFrame(() => { p.style.transition='transform 0.7s cubic-bezier(0.2,0.8,0.4,1),opacity 0.7s ease-in'; p.style.transform=`translate(calc(-50% + ${tx}px),calc(-50% + ${ty}px)) rotate(${Math.random()*720-360}deg)`; p.style.opacity='0'; });
-    setTimeout(() => p.remove(), 750);
-  }
-}
-
-/* ── Theme ────────────────────────────────────────────────────────────── */
-let dark = true;
-try { const s=localStorage.getItem('akt_theme'); if(s) dark=s==='dark'; } catch(e) {}
-function applyTheme() { document.documentElement.setAttribute('data-theme',dark?'dark':'light'); document.getElementById('theme-btn').textContent=dark?'🌙':'☀️'; try { localStorage.setItem('akt_theme',dark?'dark':'light'); } catch(e){} }
-applyTheme();
-document.getElementById('theme-btn').addEventListener('click', () => { dark=!dark; applyTheme(); });
-
-/* ── Stat Cards ────────────────────────────────────────────────────────── */
-function renderStatCards() {
-  const el = document.getElementById('stat-cards');
-  if (!state.activities.length) {
-    el.innerHTML = '<div class="empty" style="grid-column:1/-1">// aktivite ekle</div>';
-    return;
-  }
-  // Build per-activity totals from all days
+// All-time total points per activity
+function allTimeTotals() {
   const totals = {};
   state.activities.forEach(a => totals[a.name] = 0);
   Object.values(state.days).forEach(day => {
-    // We need per-activity breakdown — stored in day.actTotals if available
-    if (day.actTotals) {
-      Object.entries(day.actTotals).forEach(([name, count]) => {
-        if (totals[name] !== undefined) totals[name] += count;
-        else totals[name] = count;
-      });
-    }
+    if (!day.history) return;
+    Object.entries(day.history).forEach(([name, pts]) => {
+      if (totals[name] !== undefined) totals[name] += pts;
+      else totals[name] = pts;
+    });
   });
-  el.innerHTML = state.activities.map(a =>
-    `<div class="stat-card">
-      <div class="stat-card-num">${(totals[a.name]||0).toLocaleString('tr-TR')} <span style="font-size:20px;color:var(--accent);font-family:var(--display)">${a.unit||'kez'}</span></div>
-      <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center;margin-left:-70px">
-        <div class="stat-card-name">${a.name}</div>
-      </div>
-    </div>`
-  ).join('');
+  return totals;
 }
 
-/* ── Render ───────────────────────────────────────────────────────────── */
+// Pending activities today = those not yet completed
+function pendingActivities() {
+  const td = todayData();
+  return state.activities.filter(a => !td.completed[a.name]);
+}
+
+// ── Audio ─────────────────────────────────────────────────────────────────────
+let audioCtx = null;
+function getCtx() { if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); if (audioCtx.state==='suspended') audioCtx.resume(); return audioCtx; }
+document.addEventListener('touchstart', () => { try { const c=getCtx(),b=c.createBuffer(1,1,22050),s=c.createBufferSource(); s.buffer=b; s.connect(c.destination); s.start(0); } catch(e){} }, { once:true });
+function playDone() { try { const c=getCtx(),t=c.currentTime,o=c.createOscillator(),g=c.createGain(); o.connect(g); g.connect(c.destination); o.type='sine'; o.frequency.setValueAtTime(523,t); o.frequency.setValueAtTime(659,t+0.1); o.frequency.setValueAtTime(784,t+0.2); g.gain.setValueAtTime(0.18,t); g.gain.exponentialRampToValueAtTime(0.001,t+0.5); o.start(t); o.stop(t+0.5); } catch(e){} }
+function playGoal() { try { const c=getCtx(),t=c.currentTime; [523,659,784,1047].forEach((f,i)=>{ const o=c.createOscillator(),g=c.createGain(); o.connect(g); g.connect(c.destination); o.type='sine'; o.frequency.value=f; g.gain.setValueAtTime(0.15,t+i*0.1); g.gain.exponentialRampToValueAtTime(0.001,t+i*0.1+0.4); o.start(t+i*0.1); o.stop(t+i*0.1+0.4); }); } catch(e){} }
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+let toastTimer = null;
+function showToast(msg) { const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.remove('show'),2200); }
+
+// ── Fireworks ─────────────────────────────────────────────────────────────────
+function launchFireworks(el) {
+  const r=el.getBoundingClientRect(); const cx=r.left+r.width/2, cy=r.top+r.height/2;
+  const colors=['#d4ff4e','#FF6B6B','#4ADE80','#60A5FA','#F472B6','#FB923C'];
+  for (let i=0;i<20;i++) {
+    const p=document.createElement('div');
+    const color=colors[i%colors.length], angle=(i/20)*Math.PI*2, speed=60+Math.random()*80, size=Math.random()<0.5?6:4;
+    p.style.cssText=`position:fixed;z-index:9998;pointer-events:none;left:${cx}px;top:${cy}px;width:${size*1.4}px;height:${size}px;border-radius:2px;background:${color};transform:translate(-50%,-50%)`;
+    document.body.appendChild(p);
+    const tx=Math.cos(angle)*speed, ty=Math.sin(angle)*speed-40;
+    requestAnimationFrame(()=>{ p.style.transition='transform 0.7s cubic-bezier(0.2,0.8,0.4,1),opacity 0.7s ease-in'; p.style.transform=`translate(calc(-50% + ${tx}px),calc(-50% + ${ty}px)) rotate(${Math.random()*360}deg)`; p.style.opacity='0'; });
+    setTimeout(()=>p.remove(), 750);
+  }
+}
+
+// ── Theme ─────────────────────────────────────────────────────────────────────
+let dark = true;
+try { const s=localStorage.getItem('rounds_theme'); if(s) dark=s==='dark'; } catch(e){}
+function applyTheme() { document.documentElement.setAttribute('data-theme',dark?'dark':'light'); document.getElementById('theme-btn').textContent=dark?'🌙':'☀️'; try{localStorage.setItem('rounds_theme',dark?'dark':'light');}catch(e){} }
+applyTheme();
+document.getElementById('theme-btn').addEventListener('click', ()=>{ dark=!dark; applyTheme(); });
+
+// ── Render ────────────────────────────────────────────────────────────────────
 function render() {
-  renderStatCards();
+  const pending = pendingActivities();
+  const total = state.activities.length;
+  const done = total - pending.length;
 
-  const done = todayDoneCount();
-  const target = todayTarget();
-  const remaining = Math.max(0, target - done);
-
-  if (state.activities.length === 0) {
-    document.getElementById('header-sub').textContent = '// aktivite listesi boş';
-    document.getElementById('active-title').textContent = 'Aktivite yok';
-    document.getElementById('card-list').innerHTML = '<div class="empty">// ✏️ Listeyi Düzenle\'ye bas ve aktivite ekle</div>';
-    return;
+  // Header
+  if (total === 0) {
+    document.getElementById('header-sub').textContent = '// ⚙️ aktivite ekle';
+  } else if (pending.length === 0) {
+    document.getElementById('header-sub').textContent = '// bugün tamamlandı 🎉';
+  } else {
+    document.getElementById('header-sub').textContent = `// ${pending.length} aktivite kaldı`;
   }
 
-  document.getElementById('header-sub').textContent = remaining > 0 ? `// bugün ${remaining} aktivite kaldı` : '// bugün tamamlandı 🎉';
-  document.getElementById('active-title').textContent = remaining > 0 ? `Sıradaki aktiviteler (${remaining})` : 'Bugün tamamlandı 🎉';
-
-  const queue = buildQueue();
-  const pendingQueue = queue.slice(done); // remaining cards
-
-  const cardList = document.getElementById('card-list');
-  if (pendingQueue.length === 0) {
-    cardList.innerHTML = '';
+  // Stat cards
+  const totals = allTimeTotals();
+  const statEl = document.getElementById('stat-cards');
+  if (!state.activities.length) {
+    statEl.innerHTML = '<div class="empty" style="grid-column:1/-1">// aktivite ekle</div>';
   } else {
-    cardList.innerHTML = pendingQueue.map((item, i) => {
-      const globalNum = done + i + 1;
-      const roundLabel = (todayData().rounds||1) > 1 ? ` · Tur ${item.round}` : '';
-      return `<div class="item-wrap" id="pw-${i}">
+    statEl.innerHTML = state.activities.map(a =>
+      `<div class="stat-card">
+        <div class="stat-card-num">${(totals[a.name]||0)} <span style="font-size:18px">${a.unit||'kez'}</span></div>
+        <div class="stat-card-name">${a.name}</div>
+      </div>`
+    ).join('');
+  }
+
+  // Active title
+  document.getElementById('active-title').textContent =
+    pending.length > 0 ? `Aktiviteler (${pending.length})` : 'Tümü tamamlandı 🎉';
+
+  // Cards
+  const cardList = document.getElementById('card-list');
+  if (pending.length === 0) {
+    cardList.innerHTML = '';
+    if (total > 0) {
+      document.getElementById('celebration').style.display = 'block';
+      playGoal();
+      setTimeout(()=> document.getElementById('celebration').style.display='none', 4000);
+    }
+  } else {
+    document.getElementById('celebration').style.display = 'none';
+    cardList.innerHTML = pending.map((act, i) =>
+      `<div class="item-wrap" id="pw-${i}">
         <div class="hint-bg hint-done"><span class="hint-icon">✓</span></div>
-        <div class="item" id="pi-${i}">
-          <div class="item-num">${globalNum}</div>
+        <div class="item" id="pi-${i}" data-name="${act.name}" data-count="${act.count}" data-unit="${act.unit||'kez'}">
+          <div class="item-num">${i+1}</div>
           <div class="item-body">
-            <div class="item-name">${item.name}</div>
-            <div class="item-sub">+${item.count} ${item.unit||'kez'}${roundLabel}</div>
+            <div class="item-name">${act.name}</div>
+            <div class="item-sub">+${act.count} ${act.unit||'kez'}</div>
           </div>
           <div class="swipe-arrow">›</div>
         </div>
-      </div>`;
-    }).join('');
-    attachSwipe();
-  }
-
-  const rounds = todayData().rounds || 1;
-  document.getElementById('round-btn').textContent = '🔄 Reset';
-}
-
-/* ── Swipe ────────────────────────────────────────────────────────────── */
-function attachSwipe() {
-  const activeCount = Math.max(0, todayTarget() - todayDoneCount());
-  for (let i = 0; i < activeCount; i++) {
-    const el=document.getElementById('pi-'+i), wrap=document.getElementById('pw-'+i);
-    if (!el||!wrap) continue;
-    attachSwipeToCard(el, wrap, i);
+      </div>`
+    ).join('');
+    // Attach swipe to ALL cards
+    pending.forEach((_, i) => {
+      const el = document.getElementById('pi-'+i);
+      const wrap = document.getElementById('pw-'+i);
+      if (el && wrap) attachSwipe(el, wrap);
+    });
   }
 }
 
-function attachSwipeToCard(el, wrap, idx) {
-  const hintEl=wrap.querySelector('.hint-done');
-  let sx=0,sy=0,cx=0,on=false,locked=false;
-  function start(x,y) { sx=x; sy=y; cx=0; on=true; locked=false; el.style.transition='none'; }
-  function move(x,y) {
+// ── Swipe ─────────────────────────────────────────────────────────────────────
+function attachSwipe(el, wrap) {
+  const hintEl = wrap.querySelector('.hint-done');
+  let sx=0, sy=0, dx=0, on=false, locked=false;
+
+  function start(x, y) { sx=x; sy=y; dx=0; on=true; locked=false; el.style.transition='none'; }
+  function move(x, y) {
     if (!on) return;
-    const dx=x-sx, dy=y-sy;
-    if (!locked) { if (Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>8) { on=false; return; } if (Math.abs(dx)>8) locked=true; else return; }
-    if (dx<0) { el.style.transform='translateX(0)'; if (hintEl) hintEl.style.opacity=0; return; }
-    cx=dx; el.style.transform=`translateX(${dx}px)`; if (hintEl) hintEl.style.opacity=Math.min(1,dx/90);
+    const ddx=x-sx, ddy=y-sy;
+    if (!locked) {
+      if (Math.abs(ddy)>Math.abs(ddx) && Math.abs(ddy)>8) { on=false; return; }
+      if (Math.abs(ddx)>8) locked=true; else return;
+    }
+    dx = ddx;
+    el.style.transform = `translateX(${dx}px)`;
+    if (hintEl) hintEl.style.opacity = dx>0 ? Math.min(1, dx/90) : 0;
   }
   function end() {
-    if (!on&&!locked) return; on=false;
-    if (cx>90) completeActivity(el, idx);
-    else { el.style.transition='transform 0.25s cubic-bezier(0.4,0,0.2,1)'; el.style.transform='translateX(0)'; if (hintEl) hintEl.style.opacity=0; }
+    if (!on && !locked) return; on=false;
+    if (dx > 90) {
+      complete(el);
+    } else {
+      el.style.transition = 'transform 0.25s cubic-bezier(0.4,0,0.2,1)';
+      el.style.transform = 'translateX(0)';
+      if (hintEl) hintEl.style.opacity = 0;
+    }
   }
-  el.addEventListener('touchstart', e => { const t=e.touches[0]; start(t.clientX,t.clientY); }, { passive:true });
-  el.addEventListener('touchmove', e => { if (!on) return; const t=e.touches[0]; move(t.clientX,t.clientY); }, { passive:true });
+
+  el.addEventListener('touchstart', e=>{ start(e.touches[0].clientX, e.touches[0].clientY); }, { passive:true });
+  el.addEventListener('touchmove', e=>{ if(!on)return; move(e.touches[0].clientX, e.touches[0].clientY); }, { passive:true });
   el.addEventListener('touchend', end);
-  el.addEventListener('mousedown', e => {
-    start(e.clientX,e.clientY);
-    function mm(e2) { move(e2.clientX,e2.clientY); }
-    function mu() { end(); window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); }
+  el.addEventListener('mousedown', e=>{
+    start(e.clientX, e.clientY);
+    const mm = e2=>move(e2.clientX, e2.clientY);
+    const mu = ()=>{ end(); window.removeEventListener('mousemove',mm); window.removeEventListener('mouseup',mu); };
     window.addEventListener('mousemove',mm); window.addEventListener('mouseup',mu);
   });
 }
 
-function completeActivity(el, idx) {
-  const wrap=el.closest('.item-wrap');
-  const queue=buildQueue();
-  const done=todayDoneCount();
-  const item=queue[done + (idx||0)];
+function complete(el) {
+  const name = el.dataset.name;
+  const count = parseInt(el.dataset.count)||1;
+  const unit = el.dataset.unit||'kez';
+  const wrap = el.closest('.item-wrap');
+
   playDone(); launchFireworks(el);
-  el.style.transition='transform 0.32s cubic-bezier(0.4,0,0.2,1),opacity 0.32s';
-  el.style.transform='translateX(450px)'; el.style.opacity='0';
+  el.style.transition = 'transform 0.32s cubic-bezier(0.4,0,0.2,1),opacity 0.32s';
+  el.style.transform = 'translateX(450px)'; el.style.opacity = '0';
   if (wrap) {
-    wrap.style.transition='max-height 0.3s 0.28s,margin-bottom 0.3s 0.28s';
-    wrap.style.maxHeight=wrap.offsetHeight+'px'; wrap.style.overflow='hidden';
-    setTimeout(() => { wrap.style.maxHeight='0'; wrap.style.marginBottom='0'; }, 50);
+    wrap.style.transition = 'max-height 0.3s 0.28s,margin-bottom 0.3s 0.28s';
+    wrap.style.maxHeight = wrap.offsetHeight+'px'; wrap.style.overflow='hidden';
+    setTimeout(()=>{ wrap.style.maxHeight='0'; wrap.style.marginBottom='0'; }, 50);
   }
-  setTimeout(() => {
-    const td=todayData(); const target=todayTarget();
-    const pts = item ? item.count : 1;
-    td.done=Math.min(td.done+1, target);
-    if (item) {
-      if (!td.actTotals) td.actTotals={};
-      td.actTotals[item.name] = (td.actTotals[item.name]||0)+pts;
-      if (!td.actCardsDone) td.actCardsDone={};
-      td.actCardsDone[item.name] = (td.actCardsDone[item.name]||0)+1;
-    }
+  setTimeout(()=>{
+    const td = todayData();
+    td.completed[name] = (td.completed[name]||0) + 1;
+    td.history[name] = (td.history[name]||0) + count; // permanent points
     saveState();
-    showToast(`✓ ${item ? item.name : 'Aktivite'} +${pts} ${item && item.unit ? item.unit : 'kez'}`);
-    if (td.done >= target) setTimeout(() => celebrate(), 300);
+    showToast(`✓ ${name} +${count} ${unit}`);
     render();
   }, 380);
 }
 
-function celebrate() {
-  const el=document.getElementById('celebration');
-  document.getElementById('cel-msg').textContent='TAMAMLANDI!';
-  document.getElementById('cel-sub').textContent=`// Bugünkü tüm aktiviteler bitti! Bravo!`;
-  el.style.display='block'; playGoal(); setTimeout(() => el.style.display='none', 5000);
-}
-
-/* ── Round ────────────────────────────────────────────────────────────── */
-document.getElementById('round-btn').addEventListener('click', () => {
-  if (state.activities.length===0) { showToast('❌ Önce aktivite ekle'); return; }
-  const td=todayData();
-  td.done=0;
-  td.pendingMode=false;
-  td.pending=[];
+// ── Reset ─────────────────────────────────────────────────────────────────────
+document.getElementById('reset-btn').addEventListener('click', ()=>{
+  if (!state.activities.length) { showToast('❌ Önce aktivite ekle'); return; }
+  const td = todayData();
+  td.completed = {}; // only clear current tour, history stays
   saveState();
   document.getElementById('celebration').style.display='none';
   render();
-  showToast('🔄 Görevler sıfırlandı');
+  showToast('🔄 Yeni tur başladı');
 });
 
-
-
-/* ── Builder ──────────────────────────────────────────────────────────── */
+// ── Builder ───────────────────────────────────────────────────────────────────
 let builderOpen = false;
 function toggleBuilder(open) {
   builderOpen = open;
@@ -440,14 +384,32 @@ function toggleBuilder(open) {
   document.getElementById('edit-btn').textContent = open ? '✕' : '⚙️';
   if (open) renderActList();
 }
-document.getElementById('edit-btn').addEventListener('click', () => toggleBuilder(!builderOpen));
+document.getElementById('edit-btn').addEventListener('click', ()=> toggleBuilder(!builderOpen));
 
-document.getElementById('btn-add-act').addEventListener('click', () => {
+function renderActList() {
+  const el = document.getElementById('act-list');
+  if (!state.activities.length) { el.innerHTML='<div class="empty">// henüz aktivite yok</div>'; return; }
+  el.innerHTML = state.activities.map((a,i)=>
+    `<div class="act-item">
+      <span class="act-item-label">${a.name}</span>
+      <span class="act-item-val">${a.count} ${a.unit||'kez'}</span>
+      <button class="act-item-del" data-idx="${i}">✕</button>
+    </div>`
+  ).join('');
+  el.querySelectorAll('.act-item-del').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      state.activities.splice(parseInt(btn.dataset.idx),1);
+      saveState(); renderActList(); render();
+    });
+  });
+}
+
+document.getElementById('btn-add').addEventListener('click', ()=>{
   const name = document.getElementById('inp-name').value.trim();
   const count = parseInt(document.getElementById('inp-count').value);
-  if (!name) { showToast('❌ Aktivite adı gir'); return; }
-  if (!count||count<1) { showToast('❌ Adet gir'); return; }
   const unit = document.getElementById('inp-unit').value.trim() || 'kez';
+  if (!name) { showToast('❌ Aktivite adı gir'); return; }
+  if (!count||count<1) { showToast('❌ Miktar gir'); return; }
   state.activities.push({ name, count, unit });
   document.getElementById('inp-name').value='';
   document.getElementById('inp-count').value='';
@@ -455,57 +417,31 @@ document.getElementById('btn-add-act').addEventListener('click', () => {
   saveState(); renderActList();
 });
 
-// Enter key on inputs
-['inp-name','inp-count','inp-unit'].forEach(id => {
-  document.getElementById(id).addEventListener('keydown', e => { if (e.key==='Enter') document.getElementById('btn-add-act').click(); });
+['inp-name','inp-count','inp-unit'].forEach(id=>{
+  document.getElementById(id).addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('btn-add').click(); });
 });
 
-document.getElementById('btn-apply').addEventListener('click', () => {
-  if (state.activities.length===0) { showToast('❌ En az bir aktivite ekle'); return; }
-  const td=todayData(); td.done=0; td.rounds=1;
-  saveState(); toggleBuilder(false); render();
-  showToast('✓ Liste uygulandı, bugün sıfırlandı');
+document.getElementById('btn-apply').addEventListener('click', ()=>{
+  if (!state.activities.length) { showToast('❌ En az bir aktivite ekle'); return; }
+  toggleBuilder(false); render();
+  showToast('✓ Liste güncellendi');
 });
 
-document.getElementById('btn-reset').addEventListener('click', () => {
-  const td=todayData(); td.done=0; td.rounds=1; td.actTotals={};
-  saveState(); render(); showToast('🗑 Bugün sıfırlandı');
-});
-
-function renderActList() {
-  const el=document.getElementById('act-list');
-  if (!state.activities.length) { el.innerHTML='<div class="empty">// henüz aktivite yok</div>'; return; }
-  el.innerHTML=state.activities.map((a,i) =>
-    `<div class="act-list-item" data-idx="${i}">
-      <span class="act-list-drag">⠿</span>
-      <span class="act-list-name">${a.name}</span>
-      <span class="act-list-count">${a.count} ${a.unit||'kez'}</span>
-      <button class="act-list-del" data-idx="${i}">✕</button>
-    </div>`
-  ).join('');
-  el.querySelectorAll('.act-list-del').forEach(btn => {
-    btn.addEventListener('click', () => {
-      state.activities.splice(parseInt(btn.dataset.idx), 1);
-      saveState(); renderActList();
-    });
-  });
-}
-
-/* ── Clock ────────────────────────────────────────────────────────────── */
+// ── Clock ─────────────────────────────────────────────────────────────────────
 function updateClock() {
   const now=new Date();
   const d=document.getElementById('clock-date'), t=document.getElementById('clock-time');
-  if (!d||!t) return;
+  if(!d||!t) return;
   d.textContent=now.toLocaleDateString('tr-TR',{weekday:'short',day:'numeric',month:'long'});
   t.textContent=now.toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 }
 
-/* ── Init ─────────────────────────────────────────────────────────────── */
+// ── Init ──────────────────────────────────────────────────────────────────────
 loadState();
-window.addEventListener('load', () => { render(); });
+window.addEventListener('load', render);
 setInterval(updateClock, 1000);
 updateClock();
-document.addEventListener('visibilitychange', () => { if (!document.hidden) render(); });
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) render(); });
 </script>
 </body>
 </html>
