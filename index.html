@@ -161,7 +161,7 @@ html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--t
 
   <!-- ACTIONS -->
   <div class="actions-row">
-    <button class="btn-action" id="round-btn">🔄 Tur Ekle</button>
+    <button class="btn-action" id="round-btn">🔄 Reset</button>
     <button class="btn-action" id="edit-btn" style="max-width:52px;font-size:18px">⚙️</button>
   </div>
 
@@ -212,6 +212,7 @@ function todayDone() { return (state.days[todayStr()]||{done:0}).done; }
 // Total cards in today's session (activities * rounds)
 function todayTarget() {
   const td = todayData();
+  if (td.pendingMode && td.pending) return td.pending.length;
   return state.activities.length * (td.rounds||1);
 }
 // Cards completed today
@@ -219,7 +220,11 @@ function todayDoneCount() { return todayData().done; }
 
 // 1 card per activity; count = puan değeri
 function buildQueue() {
-  const rounds = todayData().rounds || 1;
+  const td = todayData();
+  if (td.pendingMode && td.pending) {
+    return td.pending.map(a => ({ name: a.name, count: a.count, unit: a.unit||'kez', round: 0 }));
+  }
+  const rounds = td.rounds || 1;
   const queue = [];
   for (let r = 0; r < rounds; r++) {
     state.activities.forEach(a => {
@@ -335,13 +340,20 @@ function render() {
   }
 
   const rounds = todayData().rounds || 1;
-  document.getElementById('round-btn').textContent = `🔄 Tur Ekle (${rounds}→${rounds+1})`;
+  document.getElementById('round-btn').textContent = '🔄 Reset';
 }
 
 /* ── Swipe ────────────────────────────────────────────────────────────── */
 function attachSwipe() {
-  const el=document.getElementById('pi-0'), wrap=document.getElementById('pw-0');
-  if (!el||!wrap) return;
+  const activeCount = Math.max(0, todayTarget() - todayDoneCount());
+  for (let i = 0; i < activeCount; i++) {
+    const el=document.getElementById('pi-'+i), wrap=document.getElementById('pw-'+i);
+    if (!el||!wrap) continue;
+    attachSwipeToCard(el, wrap, i);
+  }
+}
+
+function attachSwipeToCard(el, wrap, idx) {
   const hintEl=wrap.querySelector('.hint-done');
   let sx=0,sy=0,cx=0,on=false,locked=false;
   function start(x,y) { sx=x; sy=y; cx=0; on=true; locked=false; el.style.transition='none'; }
@@ -354,7 +366,7 @@ function attachSwipe() {
   }
   function end() {
     if (!on&&!locked) return; on=false;
-    if (cx>90) completeActivity(el);
+    if (cx>90) completeActivity(el, idx);
     else { el.style.transition='transform 0.25s cubic-bezier(0.4,0,0.2,1)'; el.style.transform='translateX(0)'; if (hintEl) hintEl.style.opacity=0; }
   }
   el.addEventListener('touchstart', e => { const t=e.touches[0]; start(t.clientX,t.clientY); }, { passive:true });
@@ -368,11 +380,11 @@ function attachSwipe() {
   });
 }
 
-function completeActivity(el) {
+function completeActivity(el, idx) {
   const wrap=el.closest('.item-wrap');
   const queue=buildQueue();
   const done=todayDoneCount();
-  const item=queue[done];
+  const item=queue[done + (idx||0)];
   playDone(); launchFireworks(el);
   el.style.transition='transform 0.32s cubic-bezier(0.4,0,0.2,1),opacity 0.32s';
   el.style.transform='translateX(450px)'; el.style.opacity='0';
@@ -388,6 +400,8 @@ function completeActivity(el) {
     if (item) {
       if (!td.actTotals) td.actTotals={};
       td.actTotals[item.name] = (td.actTotals[item.name]||0)+pts;
+      if (!td.actCardsDone) td.actCardsDone={};
+      td.actCardsDone[item.name] = (td.actCardsDone[item.name]||0)+1;
     }
     saveState();
     showToast(`✓ ${item ? item.name : 'Aktivite'} +${pts} ${item && item.unit ? item.unit : 'kez'}`);
@@ -406,10 +420,14 @@ function celebrate() {
 /* ── Round ────────────────────────────────────────────────────────────── */
 document.getElementById('round-btn').addEventListener('click', () => {
   if (state.activities.length===0) { showToast('❌ Önce aktivite ekle'); return; }
-  const td=todayData(); const cur=td.rounds||1;
-  td.rounds=cur+1; saveState();
+  const td=todayData();
+  td.done=0;
+  td.pendingMode=false;
+  td.pending=[];
+  saveState();
   document.getElementById('celebration').style.display='none';
-  render(); showToast(`🔄 Tur ${cur+1} başladı!`);
+  render();
+  showToast('🔄 Görevler sıfırlandı');
 });
 
 
