@@ -155,6 +155,7 @@ html,body{height:100%;background:var(--bg);font-family:var(--body);color:var(--t
       </div>
       <div class="act-list" id="act-list"></div>
       <button class="btn-apply" id="btn-apply">✓ Uygula</button>
+      <button class="btn-apply" id="btn-clear-totals" style="margin-top:6px;background:var(--surface);color:var(--red);border:1px solid var(--red)">🗑 Toplamları Sıfırla</button>
     </div>
   </div>
 
@@ -421,6 +422,12 @@ document.getElementById('btn-add').addEventListener('click', ()=>{
   document.getElementById(id).addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('btn-add').click(); });
 });
 
+document.getElementById('btn-clear-totals').addEventListener('click', ()=>{
+  if (!confirm('Tüm toplamlar silinsin mi? Bu işlem geri alınamaz.')) return;
+  Object.values(state.days).forEach(day => { day.history = {}; day.completed = {}; });
+  saveState(); render();
+  showToast('🗑 Tüm toplamlar silindi');
+});
 document.getElementById('btn-apply').addEventListener('click', ()=>{
   if (!state.activities.length) { showToast('❌ En az bir aktivite ekle'); return; }
   toggleBuilder(false); render();
